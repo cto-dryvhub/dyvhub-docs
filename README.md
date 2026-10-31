@@ -15,7 +15,7 @@ Copy `.env.example` to `.env` and set:
 - `DOCS_PASSCODE` — a unique passphrase with at least 12 characters.
 - `DOCS_AUTH_SECRET` — an independent random signing key (`openssl rand -base64 48`).
 
-Authentication runs in Vercel Routing Middleware **before** every HTML, JavaScript, JSON, search-index, image, error, `HEAD`, or range request. A correct passcode creates an 8-hour, HMAC-signed, `HttpOnly`, `Secure`, `SameSite=Strict` cookie. Neither the passcode nor a reusable verifier is built into the browser bundle.
+Authentication runs in Vercel Routing Middleware **before** every HTML, JavaScript, JSON, search-index, image, error, `HEAD`, or range request. A correct passcode creates a 1-hour, HMAC-signed, `HttpOnly`, `Secure`, `SameSite=Strict` cookie. When it expires, the next request returns the passcode page. Neither the passcode nor a reusable verifier is built into the browser bundle.
 
 For deployment, add both secrets to the Vercel project's **Production and Preview** environment variables. Do not rely on the local `.env`; Vercel does not upload it.
 

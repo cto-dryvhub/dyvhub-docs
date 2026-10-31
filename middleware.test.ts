@@ -22,6 +22,17 @@ function loginRequest(passcode: string, returnTo = '/docs/start/welcome'): Reque
   });
 }
 
+test('shows the branded passcode page before any content', async () => {
+  const response = await middleware(new Request(`${ORIGIN}/docs/start/welcome`));
+  const html = await response.text();
+
+  assert.equal(response.status, 401);
+  assert.match(html, /DryvHub/);
+  assert.match(html, /Enter the passcode/);
+  assert.match(html, /lasts 1 hour/);
+  assert.match(html, /<label for="passcode">/);
+});
+
 test('blocks HTML, assets, search, HEAD and range requests without a session', async () => {
   const cases: Request[] = [
     new Request(`${ORIGIN}/docs/start/welcome`),
@@ -65,6 +76,9 @@ test('creates a secure signed session for the correct passcode', async () => {
 
   assert.equal(response.status, 303);
   assert.equal(response.headers.get('location'), '/docs/start/welcome');
+  assert.match(cookie, /Max-Age=3600/);
+  const expiresAt = Number(cookie.split('=')[1]?.split('.')[1]);
+  assert.ok(Math.abs(expiresAt - Math.floor(Date.now() / 1000) - 3600) < 5);
   assert.match(cookie, /HttpOnly/);
   assert.match(cookie, /Secure/);
   assert.match(cookie, /SameSite=Strict/);

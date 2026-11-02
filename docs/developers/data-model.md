@@ -1,7 +1,7 @@
 ---
 title: Data model
 sidebar_position: 7
-description: "PostgreSQL schema overview with an ER diagram, a model-to-purpose table, and conventions for money, timestamps, and tenant scoping."
+description: "PostgreSQL schema overview with relationship diagrams, a model-to-purpose table, and conventions for money, timestamps, and tenant scoping."
 ---
 
 # Data model
@@ -14,35 +14,104 @@ The database has one **tenants** table (one row per dealership). Almost every ot
 
 `schema.prisma` is the source of truth. If this page and the schema disagree, the schema wins. Change it only through the Prisma CLI workflow in [Local setup](/docs/developers/local-setup).
 
-## ER overview
+## Relationships
 
-Key relationships only; columns are omitted for readability. Every tenant-owned table also carries `tenantId`.
+These diagrams list every foreign key in `schema.prisma`. Columns are omitted. `||` is exactly one, `|o` is zero or one, `o{` is zero or more.
+
+`platform_settings` has no foreign keys. It is a single global row.
+
+UUID columns that are **not** foreign keys, and so do not appear below: `vehicle_document_type.created_by`, `vehicle_documents.uploaded_by`, `vehicle_expenses.counterparty_id` and `created_by`, `financial_transactions.counterparty_id`, `reversal_of_transaction_id`, `voided_by`, and `created_by`, `monthly_overhead.counterparty_id`, and `audit_logs.entity_id`.
+
+### Spine
+
+The path from a dealership to a vehicle, then out to money and cashback. Tenant edges that only repeat `tenantId` are on the domain diagrams.
 
 ```mermaid
 erDiagram
-  TENANT ||--o{ TENANT_USER : "has members"
-  TENANT ||--o{ TENANT_LOCATION : "has addresses"
-  TENANT_LOCATION ||--o{ VEHICLE : "where stock sits"
+  TENANT ||--o{ TENANT_USER : members
+  TENANT_USER |o--o{ TENANT_USER : invites
+  TENANT ||--o{ TENANT_LOCATION : addresses
+  TENANT_LOCATION |o--o{ VEHICLE : "stock location"
   TENANT ||--o{ VEHICLE : owns
+  VEHICLE ||--o{ VEHICLE_IMAGE : photos
+  VEHICLE ||--o{ VEHICLE_DOCUMENT : documents
+  VEHICLE_DOCUMENT_TYPE ||--o{ VEHICLE_DOCUMENT : classifies
+  VEHICLE ||--o{ VEHICLE_EXPENSE : costs
+  VEHICLE_EXPENSE |o--o| FINANCIAL_TRANSACTION : "ledger row"
+  VEHICLE |o--o{ FINANCIAL_TRANSACTION : "optional vehicle"
+  VEHICLE ||--o{ MARKETPLACE_INQUIRY : inquiries
+  MARKETPLACE_INQUIRY ||--o| CASHBACK_RECORD : "may become"
+  VEHICLE ||--o| CASHBACK_RECORD : "at most one"
+  CASHBACK_RECORD ||--o{ CASHBACK_DEALER_EVIDENCE : evidence
+  CASHBACK_RECORD |o--o{ DEALER_STRIKE : "may cause"
+```
+
+### Identity and tenancy
+
+```mermaid
+erDiagram
+  TENANT ||--o{ TENANT_USER : members
+  TENANT_USER |o--o{ TENANT_USER : invites
+  TENANT ||--o{ TENANT_LOCATION : addresses
   TENANT ||--o{ TENANT_ONBOARDING_DOCUMENT : uploads
-  TENANT ||--o{ TENANT_VERIFICATION_DECISION : "reviewed by"
+  TENANT ||--o{ TENANT_VERIFICATION_DECISION : "decision history"
   PLATFORM_USER ||--o{ TENANT_VERIFICATION_DECISION : decides
   PLATFORM_USER ||--o{ AUDIT_LOG : acts
-  VEHICLE ||--o{ VEHICLE_IMAGE : has
-  VEHICLE ||--o{ VEHICLE_DOCUMENT : has
+```
+
+Deleting a tenant cascades to members, locations, and onboarding documents. Deleting a platform user is restricted while they still have verification decisions or audit rows. Deleting the member who sent an invite sets `invitedById` to null.
+
+### Inventory
+
+```mermaid
+erDiagram
+  TENANT ||--o{ VEHICLE : owns
+  TENANT_LOCATION |o--o{ VEHICLE : "stock location"
+  TENANT ||--o{ VEHICLE_IMAGE : owns
+  VEHICLE ||--o{ VEHICLE_IMAGE : photos
+  TENANT ||--o{ VEHICLE_DOCUMENT : owns
+  VEHICLE ||--o{ VEHICLE_DOCUMENT : files
   VEHICLE_DOCUMENT_TYPE ||--o{ VEHICLE_DOCUMENT : classifies
+```
+
+`Vehicle.locationId` is optional. Deleting a location sets it to null. Images, documents, and the vehicle itself cascade when the tenant or the vehicle is deleted. A document type cannot be deleted while documents still reference it.
+
+### Money
+
+```mermaid
+erDiagram
+  TENANT ||--o{ VEHICLE_EXPENSE : owns
   VEHICLE ||--o{ VEHICLE_EXPENSE : incurs
-  VEHICLE ||--o{ FINANCIAL_TRANSACTION : "payments and costs"
-  VEHICLE ||--o{ MARKETPLACE_INQUIRY : receives
-  MARKETPLACE_INQUIRY ||--o| CASHBACK_RECORD : "may become"
-  VEHICLE ||--o| CASHBACK_RECORD : "at most one claim"
-  CASHBACK_RECORD ||--o{ CASHBACK_DEALER_EVIDENCE : "dealer evidence"
-  CASHBACK_RECORD ||--o{ DEALER_STRIKE : "may cause"
-  PLATFORM_USER ||--o{ CASHBACK_RECORD : reviews
+  TENANT ||--o{ FINANCIAL_TRANSACTION : owns
+  VEHICLE |o--o{ FINANCIAL_TRANSACTION : "optional vehicle"
+  VEHICLE_EXPENSE |o--o| FINANCIAL_TRANSACTION : "optional ledger row"
   TENANT ||--o{ MONTHLY_OVERHEAD : tracks
+  TENANT_USER |o--o{ MONTHLY_OVERHEAD : "created by"
   TENANT ||--o{ LEGACY_FINANCIAL_IMPORT_BATCH : imports
+  TENANT_USER |o--o{ LEGACY_FINANCIAL_IMPORT_BATCH : "imported by"
+  TENANT ||--o{ LEGACY_FINANCIAL_RECORD : owns
   LEGACY_FINANCIAL_IMPORT_BATCH ||--o{ LEGACY_FINANCIAL_RECORD : contains
 ```
+
+`financial_transactions.vehicle_id` and `vehicle_expense_id` are both optional. `vehicle_expense_id` is unique, so an expense has at most one ledger row. Deleting a vehicle or an expense sets those columns to null. Deleting the member who created overhead or an import batch does the same for `created_by` and `imported_by`. The batch delete cascades to its records.
+
+### Marketplace and cashback
+
+```mermaid
+erDiagram
+  TENANT ||--o{ MARKETPLACE_INQUIRY : receives
+  VEHICLE ||--o{ MARKETPLACE_INQUIRY : listing
+  TENANT ||--o{ CASHBACK_RECORD : "dealer on the claim"
+  VEHICLE ||--o| CASHBACK_RECORD : "at most one"
+  MARKETPLACE_INQUIRY ||--o| CASHBACK_RECORD : "inquiry code"
+  PLATFORM_USER |o--o{ CASHBACK_RECORD : reviews
+  TENANT ||--o{ CASHBACK_DEALER_EVIDENCE : owns
+  CASHBACK_RECORD ||--o{ CASHBACK_DEALER_EVIDENCE : evidence
+  TENANT ||--o{ DEALER_STRIKE : penalized
+  CASHBACK_RECORD |o--o{ DEALER_STRIKE : "optional claim"
+```
+
+A cashback row requires both a vehicle and an inquiry, and both links are unique, so each vehicle and each inquiry has at most one claim. Those two foreign keys, and the tenant foreign key on `cashback_records` and `dealer_strikes`, use `Restrict`: a tenant, vehicle, or inquiry cannot be deleted while a claim still points at it. Reviewer and strike-to-claim links are optional and set to null on delete. Inquiry rows cascade with the tenant and the vehicle. Evidence cascades with the claim.
 
 ## Models and purpose
 

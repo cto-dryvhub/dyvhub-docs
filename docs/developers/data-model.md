@@ -21,6 +21,8 @@ Key relationships only; columns are omitted for readability. Every tenant-owned 
 ```mermaid
 erDiagram
   TENANT ||--o{ TENANT_USER : "has members"
+  TENANT ||--o{ TENANT_LOCATION : "has addresses"
+  TENANT_LOCATION ||--o{ VEHICLE : "where stock sits"
   TENANT ||--o{ VEHICLE : owns
   TENANT ||--o{ TENANT_ONBOARDING_DOCUMENT : uploads
   TENANT ||--o{ TENANT_VERIFICATION_DECISION : "reviewed by"
@@ -52,6 +54,7 @@ Table names are the snake_case names from `@@map`.
 | ----- | ----- | ------- | -------------- |
 | `Tenant` | `tenants` | One dealership: business and public-profile fields, unique `subdomain`, subscription plan and status, trial dates, limits (inventory, admins, storage), verification stage and status, Facebook connection fields, cashback eligibility | Is the tenant |
 | `TenantUser` | `tenant_users` | A dealership member. Unique `authUserId` (the Supabase user id), role `owner` or `staff`, active flag. This table is the **only** source of tenant identity | Yes |
+| `TenantLocation` | `tenant_locations` | A dealership's physical address: street lines, barangay, city, province, region, postal code, country, the PSGC codes for the last three, coordinates and geocoding metadata, and the `isPrimary` / `isShowroom` / `isActive` / `locationVerified` flags. A tenant has many; exactly one may be primary and active at a time (ADR-0013, ADR-0014) | Yes |
 | `PlatformUser` | `platform_users` | DryvHub staff. Unique `authUserId`, role `admin`, active flag | Global |
 | `TenantVerificationDecision` | `tenant_verification_decisions` | History of approve or reject decisions by platform admins, with reason | Yes |
 | `AuditLog` | `audit_logs` | Admin action trail (actor, action, entity, JSON metadata) | Global (actor is a platform user) |
@@ -102,7 +105,7 @@ Table names are the snake_case names from `@@map`.
 | Secrets in rows | The tenant row stores a Facebook access token (`fbAccessToken`). Never return it from an endpoint or log it |
 | Prisma client | Generated into `src/generated/prisma` (gitignored). Core entities in `src/core/entities` are plain interfaces, never Prisma types |
 
-Schema changes always follow: edit `schema.prisma`, run `npx prisma migrate dev --name <name>`, run `npx prisma generate`, then update entities, ports, data services, and tests. Never hand-write migration SQL.
+Schema changes always follow: edit `schema.prisma`, run `npx prisma migrate dev --name <name>`, run `npx prisma generate`, then update entities, ports, data services, and tests. Never author migration SQL from scratch — always let Prisma generate the file. A generated migration may be **extended** by hand for things Prisma cannot express (a partial unique index, a data backfill), and when it is, say so in the migration header.
 
 ## Planned or partial
 
@@ -112,6 +115,28 @@ Schema changes always follow: edit `schema.prisma`, run `npx prisma migrate dev 
 ## MongoDB (plate-check registry)
 
 Plate-check flags live in a shared MongoDB database (default name `platecheck`), not in PostgreSQL (ADR-0012). The registry is intentionally visible to all authenticated dealers, so it is **not** tenant-scoped. See [API integration](/docs/developers/api-integration) for its endpoints. Vehicle rows keep a `platecheckFlagged` boolean in Postgres, and the listing status `blocked_platecheck` makes the publish use-case refuse to publish that vehicle.
+
+## Philippine geography (PSGC)
+
+Regions, provinces, cities, and municipalities are **not** a database table. They come from the **PSGC** — the Philippine Standard Geographic Code, the PSA's official registry of administrative divisions, which assigns each one a stable 9-digit code.
+
+The dataset is a committed build artifact at `dryvhub-api/src/core/data/psgc.generated.ts`: 17 regions, 81 provinces, 1,634 cities and municipalities. Regenerate it with `npm run psgc:sync`, which is the only thing that ever contacts the PSGC API. Nothing calls it at request time, so dealer onboarding does not depend on a third-party mirror staying up.
+
+A dealer address stored in `tenant_locations` keeps both the canonical name and its code:
+
+| Column | Holds |
+| ------ | ----- |
+| `region`, `province`, `city` | The PSGC spelling, rewritten on save. `Makati` is stored as `City of Makati` |
+| `regionCode`, `provinceCode`, `cityCode` | The PSGC codes, derived server-side. Never accepted from a request body |
+| `barangay` | Free text. Not validated (ADR-0014 explains why) |
+
+Three things to know before working with this:
+
+- **Validation is chain-scoped.** A city is only resolved inside an already-resolved province or region, because city names repeat — "Santa Cruz" names six different municipalities. Validating the fields independently would accept Cebu City in Region I.
+- **Codes are nullable.** Rows written before ADR-0014 have none. The read path resolves them from the stored names, and the next write persists them, so do not assume a code is present on older data.
+- **NCR has no provinces.** `Metro Manila` is accepted as an alias for the region and dropped from the province field rather than rejected. The retired `Region IV-B` maps to `MIMAROPA` the same way.
+
+The portal gets this list from `GET /api/v1/geo/ph/regions`, `/provinces`, and `/cities` — see [API integration](/docs/developers/api-integration).
 
 ## Related pages
 

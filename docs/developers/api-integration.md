@@ -107,6 +107,12 @@ Prefix every path with `/api/v1`. "Tenant" means a bearer token plus an active t
 | POST | `/tenants/current/documents/confirm` | Tenant | Confirm tenant document |
 | GET | `/tenants/current/documents` | Tenant | List tenant documents |
 | DELETE | `/tenants/current/documents/:documentId` | Tenant | Delete tenant document |
+| GET | `/tenants/current/locations` | Tenant | List the dealership's addresses |
+| GET | `/tenants/current/locations/primary` | Tenant | The primary address |
+| POST | `/tenants/current/locations` | Tenant | Add an address |
+| PATCH | `/tenants/current/locations/:id` | Tenant | Update an address |
+| POST | `/tenants/current/locations/:id/primary` | Tenant | Make this address primary |
+| DELETE | `/tenants/current/locations/:id` | Tenant | Deactivate an address |
 | GET | `/admin/tenant-verifications` | Admin | List verification queue |
 | GET | `/admin/tenant-verifications/:tenantId` | Admin | Verification detail |
 | PATCH | `/admin/tenant-verifications/:tenantId` | Admin | Approve, reject, or update verification |
@@ -202,6 +208,18 @@ Prefix every path with `/api/v1`. "Tenant" means a bearer token plus an active t
 | PATCH | `/admin/cashback/claims/:id` | Admin | Review or decide a claim |
 | POST | `/admin/cashback/claims/:id/payout` | Admin | Record payout |
 | GET, PATCH | `/admin/platform-settings` | Admin | Read or update platform settings (such as the cashback rate) |
+
+### Philippine geography (PSGC reference data)
+
+| Method | Path | Auth | Purpose |
+| ------ | ---- | ---- | ------- |
+| GET | `/geo/ph/regions` | Public | All 17 regions |
+| GET | `/geo/ph/provinces?regionCode=` | Public | Provinces, optionally scoped to one region |
+| GET | `/geo/ph/cities?provinceCode=&regionCode=` | Public | Cities and municipalities, scoped to a province or region |
+
+These feed the cascading Region → Province → City dropdowns in onboarding and the dealer profile. Each record is `{ code, name }`, where `code` is the 9-digit PSGC code; regions also carry a `longName`.
+
+They are public and send `Cache-Control: public, max-age=86400, stale-while-revalidate=604800` — this is published government reference data with no tenant dimension, so requiring a token would only stop the browser and CDN caching it. An unknown code returns `400 VALIDATION_ERROR`. A client sending an address should send **names**, not codes: the API derives the codes itself and ignores any the client supplies. See [Data model](/docs/developers/data-model) for where the dataset comes from.
 
 ### Notifications
 

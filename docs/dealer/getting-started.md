@@ -111,6 +111,8 @@ New dealers start on `/onboarding`, a full-screen wizard with four steps. The wi
 | **3. Showroom photos** | At least one photo of the showroom that includes a selfie of the dealer. The step can be skipped for now, but a photo is needed before submitting. |
 | **4. Review and submit** | A summary of everything entered, a list of any missing documents, and the Submit button. |
 
+On the first step, street and barangay are typed in, but **region, province and city are dropdowns** picked in that order: a region narrows the provinces, a province narrows the cities. The list is the PSA's official one, so the saved spelling can differ from what the dealer would have typed — Makati is stored as "City of Makati". Choosing NCR hides the province dropdown, because the PSA does not split NCR into provinces. [Dealer profile](/docs/dealer/dealer-profile#why-the-address-is-a-dropdown) explains why.
+
 File rules:
 
 | Kind | Accepted | Largest size |

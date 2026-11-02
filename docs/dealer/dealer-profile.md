@@ -26,7 +26,7 @@ The dealer profile is the dealership's "storefront page" on DryvHub: logo, photo
 | **About** | A short description. |
 | **Contact phone** | |
 | **Contact email** | |
-| **Physical address** | |
+| **Physical address** | Street, an optional second line, barangay, and postal code are typed in. **Region, province and city are dropdowns**, chosen in that order — picking a region narrows the provinces, picking a province narrows the cities. See [the note below](#why-the-address-is-a-dropdown). |
 | **Business hours** | Free text, for example "Mon–Sat 9am–6pm". |
 | **Website** | |
 | **Facebook, Instagram, LinkedIn, YouTube** | Links to the dealer's pages. |
@@ -37,6 +37,17 @@ A sticky **Save profile** button saves everything at once and shows "Profile sav
 :::note
 Saving the profile is **not** locked behind verification. Any dealer can edit it, even before submitting onboarding.
 :::
+
+### Why the address is a dropdown
+
+Region, province and city come from the **PSGC**, the Philippine Statistics Authority's official list of administrative divisions. Picking from a list instead of typing means a dealership cannot be lost from buyer searches because its city was spelled a different way — "Parañaque City" and "City of Parañaque" would otherwise be two unrelated places as far as a filter is concerned.
+
+Two consequences dealers notice:
+
+- **The saved spelling is the official one.** A dealer who picked Makati sees **City of Makati** afterwards. Nothing is wrong; that is the PSA's name for it.
+- **Metro Manila is the region, not a province.** Choosing NCR hides the province dropdown entirely, because the PSA does not divide NCR into provinces.
+
+Barangay is still typed in freely. If a dealership's city is genuinely missing from the list, that is a data issue to raise with DryvHub rather than something to work around in the street field.
 
 ## The public dealer page
 

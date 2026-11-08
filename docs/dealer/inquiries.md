@@ -26,7 +26,7 @@ An inquiry is a record created when a buyer sends an inquiry from a listing's ca
 - The **source**, which is always **Messenger** today, and the **entry point**: **Listing card** or **Listing details**.
 - The **cashback rate locked at that moment** (see below).
 
-How the buyer side works is described in [Send inquiry](/docs/marketplace/send-inquiry).
+How the buyer side works is described in [Send inquiry](/docs/marketplace/send-inquiry). The dealership is notified only after the buyer submits their name. See [Notifications](/docs/dealer/notifications).
 
 ## The page
 
@@ -85,6 +85,7 @@ For the buyer-side rules see [Cashback claims](/docs/marketplace/cashback-claims
 
 ## Related pages
 
+- [Notifications](/docs/dealer/notifications)
 - [Cashback](/docs/dealer/cashback)
 - [Listings and publishing](/docs/dealer/listings-and-publishing)
 - [Send inquiry](/docs/marketplace/send-inquiry)

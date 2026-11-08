@@ -21,3 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 .env*
+
+# graphify
+graphify-out/

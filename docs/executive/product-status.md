@@ -71,7 +71,7 @@ Plans alone never count as shipped. Snapshot date: **November 2026** (code on th
 | Cashback claim and evidence follow-up | **Live** | `app/purchases/cashback`; API `cashback/claims` |
 | Dealer recruitment page | **Live** | `app/for-dealers/page.tsx` |
 | SEO: sitemap, robots, metadata | **Live** | `app/sitemap.ts`, `app/robots.ts` |
-| Cashback amount shown to buyers | **Partial** | Flat ₱2,000 in copy; backend computes a percentage of the sold price |
+| Cashback amount shown to buyers | **Live** | Flat ₱2,000 in copy and in the claim amount the API stores |
 | Report a listing | **Planned** | Not found; also not in any plan we read |
 | Browser (E2E) tests | **Planned** | No `test:e2e` script; unit tests only |
 

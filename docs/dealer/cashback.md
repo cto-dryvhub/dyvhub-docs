@@ -91,12 +91,12 @@ Respond truthfully. A claim that DryvHub staff mark as **confirmed fraud** gives
 | --- | --- |
 | Vehicle, Inquiry, Inquiry created | What the claim is about and when the buyer inquired. |
 | Sold date, Sold price | From the sale record. |
-| Buyer cashback, Locked rate | What the buyer is claiming and the rate locked at the inquiry. |
+| Buyer cashback, Agent commission | The buyer is owed a flat ₱2,000. Agent commission of ₱3,000 appears only when the sale has a sales agent. |
 | Buyer evidence | Notes and files the buyer supplied. |
 | Your notes, Your evidence, You responded | What the dealer sent, and when. |
 | Dispute reason | If disputed. |
 | Claim review, Rejection reason, Fraud hold, Waiting on buyer | Explanations that appear for those statuses. |
-| **Fee summary** | On approved or paid claims: **Dealer fee**, **Buyer amount**, **Platform amount**. |
+| **Fee summary** | On approved or paid claims: **Dealer fee** and **Buyer amount**. DryvHub's share is not shown. |
 
 The fee summary notes: "Approved claims enter the weekly payout queue. Buyer payouts cut off Tuesday and pay out on Friday."
 
@@ -104,8 +104,9 @@ The fee summary notes: "Approved claims enter the weekly payout queue. Buyer pay
 
 When a claim is created the amounts are calculated once and stored:
 
-- **Buyer amount** = sold price multiplied by the locked cashback rate.
-- The rate defaults to **5.00%** from DryvHub's platform settings. The **dealer fee** and **platform revenue** shares default to **0.00%** and are adjustable by DryvHub administrators.
+- **Buyer amount** is a flat **₱2,000**. It does not change with the sold price.
+- **Agent commission** is **₱3,000** when the sale has a sales agent. The claim screen shows that amount. When the sale has no sales agent, that ₱3,000 stays with DryvHub and the screen does not mention it.
+- The **dealer fee** is still a percentage of the sold price. It defaults to **0.00%**.
 
 ## What the system checks on a claim
 

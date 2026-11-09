@@ -9,7 +9,7 @@ description: Who can claim cashback, what a buyer enters, how claims are reviewe
 This page explains the buyer's cashback claim on the Marketplace (`/purchases/cashback`) and what the DryvHub team does with it afterwards.
 
 :::tip[In plain English]
-If a buyer finds a car through DryvHub Marketplace and buys it, they can ask DryvHub for **cashback**. They enter the **inquiry code** from their chat, the **name on the sale paperwork**, and where the money should go (GCash or bank). DryvHub checks the claim against the **dealer's recorded sale**. A DryvHub admin reviews it, and if it is approved, an admin sends the payout by hand and records it. The amount is set by DryvHub's platform settings, not by the website.
+If a buyer finds a car through DryvHub Marketplace and buys it, they can ask DryvHub for **cashback**. They enter the **inquiry code** from their chat, the **name on the sale paperwork**, and where the money should go (GCash or bank). DryvHub checks the claim against the **dealer's recorded sale**. A DryvHub admin reviews it, and if it is approved, an admin sends the payout by hand and records it. An eligible claim pays a flat **₱2,000**.
 :::
 
 ## Who is eligible?
@@ -55,7 +55,7 @@ The site does **not** upload files. Evidence is notes and/or a link. File upload
 The buyer sees the status screen with:
 
 - the headline for the claim's status (normally **Claim received**),
-- **Cashback amount** (formatted as pesos with centavos, taken from the API response),
+- **Cashback amount** (a flat ₱2,000),
 - the inquiry code, the vehicle, and the payout method.
 
 The site remembers the **latest claim for this browser tab only**. It is cleared when the tab is closed. A buyer who returns later in a new tab starts with an empty claim form.
@@ -124,7 +124,7 @@ The status screen does not currently show the claim ID. How a buyer who closed t
 | --- | --- |
 | **DryvHub admins** | List claims and open a claim's details. **Review** (approve, reject, ask for evidence, send to fraud review, mark fraud confirmed, ask the dealer to act). **Record a payout** with the method, a reference and a success or failed outcome. |
 | **Dealers** | See cashback claims on their cars in the Dealer app, and may **confirm** or **dispute** a sale with reasons and evidence (for example OR/CR, sales proof, release). See [Dealer cashback](/docs/dealer/cashback). |
-| **Platform settings (admins)** | The cashback percentage, dealer fee percentage, platform revenue percentage, and an optional promotion with start, end and promo rate. |
+| **Platform settings (admins)** | Dealer fee percentage, platform revenue percentage, and a stored cashback rate that is no longer used to price the buyer payout. The buyer payout is a flat ₱2,000. |
 
 :::note[Payouts are manual]
 DryvHub does not connect to GCash or a bank to pay automatically. Admins send the money themselves, then record the outcome and reference in the system. A failed payout can be retried.
@@ -136,14 +136,9 @@ If a dealer's cashback behavior is found to be a problem (for example a confirme
 
 ## How much is the cashback?
 
-:::warning[The site and the backend describe the amount differently]
-- **On the website**, the cashback page says "Eligible claims pay a flat ₱2,000", and the inquiry window says "claim ₱2,000 cashback". That number is a **fixed value written into the website** and used only for display.
-- **In the backend**, the amount is a **percentage of the sold price**: sold price multiplied by the **locked rate** saved at inquiry time, divided by 100, rounded to centavos. The rate is configured by admins in platform settings (and can change during a promotion). The code has a built-in starting rate, but the live value is whatever admins have set.
+Eligible claims pay a flat **₱2,000**. The website and the API use that same amount. The sold price does not change it.
 
-The amount shown after submitting comes from the API, so it can differ from "₱2,000". Which one reflects the business policy is **not verified** here. Confirm with the product team before quoting an amount to buyers or executives.
-:::
-
-The locked rate means a buyer is protected from later rate changes: whatever rate applied **when they sent the inquiry** is the one used. See [Send Inquiry](/docs/marketplace/send-inquiry).
+Claims created before this rule still show the amount stored when they were submitted. New claims store ₱2,000.
 
 ## Error messages buyers can see
 

@@ -78,8 +78,8 @@ Verification checks that a dealership **submitted documents and an admin accepte
 
 :::caution Gaps
 - Dealer confirmation is **optional** for admin approval, so an admin can approve a claim the dealer never responded to.
-- The Marketplace advertises a flat ₱2,000 cashback while the backend computes a percentage of the sold price; a mismatch is a **trust and dispute risk** (see [Business model](/docs/executive/business-model)).
 - There is **no written admin review playbook** in the repositories (what proof is enough, how fast to respond).
+- Claims saved before the flat ₱2,000 rule still carry the older percentage amount until those rows are corrected.
 :::
 
 ## 5. Data separation and storage

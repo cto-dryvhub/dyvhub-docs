@@ -126,7 +126,7 @@ Wait for the DryvHub team to review. Today the site cannot show later status upd
 
 ### The buyer expected ₱2,000 but sees a different amount.
 
-The site's text says "flat ₱2,000," but the backend works out the amount as a percentage of the sold price using the rate locked at inquiry time. The amount shown after submitting is the API's number. Which is the intended policy is not verified. See the warning in [Cashback claims](/docs/marketplace/cashback-claims).
+New claims pay a flat ₱2,000. A claim submitted earlier can still show the older percentage amount, because that number was saved on the claim and is not recalculated. See [Cashback claims](/docs/marketplace/cashback-claims).
 
 ### "Too many attempts. Wait a few minutes and try again."
 

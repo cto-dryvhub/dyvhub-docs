@@ -38,7 +38,7 @@ Think of the API as a restaurant kitchen (rules, ingredients, recipes) and the t
 | `prisma/schema.prisma` | Source of truth for the database schema |
 | `prisma/migrations/` | Migration folders created by `prisma migrate dev` (never hand-written) |
 | `prisma.config.ts` | Prisma CLI config; migrations use `DIRECT_URL` when set, otherwise `DATABASE_URL` |
-| `docs/adr/` | Architecture Decision Records 0001 to 0012 |
+| `docs/adr/` | Architecture Decision Records 0001 to 0015 |
 | `docs/api/` | Endpoint-family docs (`vehicle-documents.md`, `plate-check.md`) |
 | `docs/plans/` | One plan per feature (the contract for the plan-code-review cycle) |
 | `docs/Git FLow/` | Branching and release process |

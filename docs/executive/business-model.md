@@ -9,9 +9,8 @@ description: How value and revenue flow through DryvHub - dealer subscriptions a
 :::tip[Key takeaways]
 - DryvHub's **intended** revenue is a **monthly dealer subscription** with five plans. The plan catalog and prices exist in the Dealer app, but **no payment is collected by software today**.
 - The Marketplace is a **paid-plan feature**: a dealer needs Starter or higher (plus Stage 2 verification) to list publicly. This is the main upgrade lever.
-- **Buyer cashback** is calculated by the backend as a percentage of the sold price (default 5 percent), paid **manually** by a DryvHub admin after review. The code does not say who ultimately funds it.
-- Three **platform settings** control the money knobs: cashback rate, dealer fee percent, and platform revenue percent, plus an optional promotion window. Defaults are 5, 0, and 0 percent.
-- Open question for leadership: the Marketplace tells buyers "a flat ₱2,000", while the backend pays a percentage. Both cannot be true.
+- **Buyer cashback** is a flat **₱2,000** on an eligible claim, paid **manually** by a DryvHub admin after review. It is not a percentage of the sold price. The code does not say who ultimately funds it.
+- **Dealer fee** and **platform revenue** are still percentages of the sold price. They default to 0 percent. An older cashback-rate setting remains on platform settings and is not used to price the buyer payout.
 :::
 
 ## The value exchange
@@ -81,32 +80,19 @@ None of this is built. See [Billing](/docs/dealer/billing) for what dealers see 
 
 ### How the money is calculated
 
-When a buyer submits a cashback claim, the backend computes three amounts from the **sold price** the dealer recorded and **freezes** them on the claim:
+When a buyer submits a cashback claim, the backend freezes three amounts on the claim:
 
-| Amount | Formula | Default setting | Meaning |
+| Amount | Formula | Default | Meaning |
 | --- | --- | --- | --- |
-| **Buyer amount** | Sold price times the **rate locked on the inquiry**, divided by 100 | 5 percent | What the buyer is owed |
+| **Buyer amount** | Flat **₱2,000** | ₱2,000 | What the buyer is owed |
 | **Dealer fee** | Sold price times the dealer fee percent, divided by 100 | 0 percent | A fee attributed to the dealer on this claim |
 | **Platform amount** | Sold price times the platform revenue percent, divided by 100 | 0 percent | DryvHub's share attributed to this claim |
 
-The **rate is locked when the buyer sends the inquiry**, so a later settings change does not reprice an inquiry already in flight. The dealer fee and platform amount use the settings in force **when the claim is made**.
-
-:::info Illustration only
-Suppose a hypothetical car sold for ₱500,000 and the locked rate was the default 5 percent. The calculated buyer amount would be ₱25,000. This example is invented to show the arithmetic; it is not a real sale or a recommended rate.
-:::
+The buyer amount does not change with the sold price or with the rate stored on the inquiry. The dealer fee and platform amount use the settings in force **when the claim is made**.
 
 ### Who funds it?
 
 **The code does not say.** The system records a dealer fee and a platform amount on each claim, and an admin records a manual GCash or bank transfer as the payout. Nothing in the code collects the dealer fee from the dealer, deducts it from a balance, or reconciles payouts against any account. The platform settings default the dealer fee to 0 percent. Leadership should confirm the intended funding model and document it. Until then, the safest reading is that **DryvHub pays cashback from its own funds** and the dealer fee is a recorded but uncollected number.
-
-### The ₱2,000 versus percentage mismatch
-
-| Where | What it says |
-| --- | --- |
-| Marketplace home, claim page, search snippets | "A flat ₱2,000" cashback (a constant in the Marketplace code) |
-| API cashback math | A **percentage** of the sold price (default 5 percent) |
-
-On a ₱200,000 car the two approaches differ widely, and on a ₱1,000,000 car the percentage is several times larger. The Marketplace claim page shows the flat amount as the "expected amount" before the claim is sent, but the claim status screen later shows the amount returned by the API. A buyer could therefore see two different numbers. This is the single most important commercial inconsistency in the product today. See [Risks and dependencies](/docs/executive/risks-and-dependencies).
 
 ## Platform settings: the knobs
 
@@ -114,7 +100,7 @@ All values live in one record (`platform_settings`). An admin changes them throu
 
 | Setting | Default | What it controls |
 | --- | --- | --- |
-| Cashback rate percent | 5.00 | The normal cashback percentage locked onto new inquiries |
+| Cashback rate percent | 5.00 | Stored on new inquiries. It does not set the buyer payout, which is a flat ₱2,000 |
 | Dealer fee percent | 0.00 | Dealer fee recorded on each claim |
 | Platform revenue percent | 0.00 | DryvHub share recorded on each claim |
 | Promo enabled | Off | Turns on a promotional cashback rate |

@@ -40,7 +40,7 @@ flowchart LR
 | --- | --- |
 | **Data source** | **Combined**, **System** (records created in DryvHub) or **Legacy** (records imported from older books). |
 | **Timeframe** | All, Yearly or Monthly, with Year and Month pickers when relevant. |
-| **Import Legacy** | Upload a JSON file with 1 to 5000 records and give it a source label. |
+| **Import Legacy** | Upload a .csv or .xlsx file with 1 to 5000 records and give it a source label. Download the template for the required columns: recordType, amount, and occurredOn. |
 | **Clear Legacy** | Removes imported legacy records. A dialog asks "Clear imported legacy records?" first. |
 
 Shows four cards: **Total Revenue**, **Gross Profit**, **Overhead**, **Net Profit**.

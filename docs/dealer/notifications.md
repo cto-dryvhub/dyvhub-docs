@@ -1,7 +1,7 @@
 ---
 title: Notifications
 sidebar_position: 9.5
-description: When the dealer bell notifies the dealership about a marketplace inquiry, who receives it, and what the notification does not confirm.
+description: When the dealer bell notifies the dealership about a marketplace inquiry or a cashback request, who receives it, and what the notification does not confirm.
 ---
 
 # Notifications
@@ -9,7 +9,7 @@ description: When the dealer bell notifies the dealership about a marketplace in
 This page explains the bell in the dealer header: what creates a notification, who receives it, and how to open the inquiry it points to.
 
 :::tip[In plain English]
-The bell means a buyer typed their name on a Marketplace inquiry and was sent to Messenger. Opening the form, or closing it without submitting, does not notify anyone. The bell does not mean a Messenger message arrived.
+The bell means a buyer submitted a Marketplace inquiry, or requested cashback on a sale. Opening the inquiry form, or closing it without submitting, does not notify anyone. An inquiry notification does not mean a Messenger message arrived.
 :::
 
 ## What triggers a notification
@@ -38,7 +38,9 @@ flowchart TD
 Messenger delivery is not confirmed. The notification means the buyer was sent to Messenger. It does not mean a message was received. The buyer still has to press Send in Messenger.
 :::
 
-Each item is titled **New marketplace inquiry**. Under that it says **Buyer redirected to Messenger, delivery not confirmed**, then the buyer's name (when DryvHub has one) and the vehicle.
+Each inquiry item is titled **New marketplace inquiry**. Under that it says **Buyer redirected to Messenger, delivery not confirmed**, then the buyer's name (when DryvHub has one) and the vehicle.
+
+A cashback item is created only when a buyer **successfully submits a cashback request**. It is titled **New cashback request**. Under that it says **A buyer requested cashback for this sale**, then the buyer's name and the vehicle. A rejected or duplicate request does not notify anyone. Click that item to open the claim on the [Cashback](/docs/dealer/cashback) page.
 
 ## Who is notified
 
@@ -56,7 +58,7 @@ The bell sits in the header.
 
 The bell's name includes the unread count ("Notifications, 2 unread", for example). When the count changes, that change is announced.
 
-Click an item to mark it read and open that inquiry on the [Inquiries](/docs/dealer/inquiries) page.
+Click an inquiry item to mark it read and open that inquiry on the [Inquiries](/docs/dealer/inquiries) page. Click a cashback item to mark it read and open that claim.
 
 ## Read state is per person
 
@@ -73,4 +75,5 @@ The badge is meant to update while you are signed in. If a live update does not 
 ## Related pages
 
 - [Inquiries](/docs/dealer/inquiries)
+- [Cashback](/docs/dealer/cashback)
 - [Send inquiry](/docs/marketplace/send-inquiry)

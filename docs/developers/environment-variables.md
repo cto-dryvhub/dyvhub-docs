@@ -48,8 +48,6 @@ Template: `.env.example`. The API never exposes env values to clients. Values wi
 
 ### Facebook
 
-Per-environment values for the Page connect callback, and the tenant return variables, are in [Facebook Page connect](./facebook-page-connect.md#environment-variables).
-
 | Variable | Required? | Purpose |
 | -------- | --------- | ------- |
 | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` | Required for the `/tenants/current/facebook/connect/*` endpoints | Meta app credentials for Page connect (OAuth) |

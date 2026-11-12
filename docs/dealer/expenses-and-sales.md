@@ -25,7 +25,7 @@ Overhead is covered in [Financials](/docs/dealer/financials).
 
 ## Vehicle expenses
 
-On the vehicle page, the **Expenses** section lists costs and offers **Add expense**.
+On the vehicle page, the **Expenses** section lists costs. While editing, choose **Add expense**, fill in as many rows as you need with **Add another row**, then choose **Add expenses** to save them together. Owners, admins, and staff can do this.
 
 | Field | Rule |
 | --- | --- |

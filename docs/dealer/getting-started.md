@@ -85,6 +85,10 @@ There are two ways to sign in on the dealer sign-in page:
 - **Email and password.** A wrong pair shows "Email or password is incorrect."
 - **Continue with Google.** A new Google user is first asked to verify their email with a code, then completes registration with the business name.
 
+### Joining someone else's dealership
+
+If an owner or admin invited this person by email, they should open the **link in that message**, not the public sign-up form. They can set a password or use **Continue with Google**, but the sign-in email must match the invited address. Roles, seat limits, and what staff may open are in [Team and roles](/docs/dealer/team-and-roles).
+
 ### Reset a forgotten password
 
 1. On the sign-in page choose the reset option and enter the account email. If the box is empty the page says "Enter the email for your account."
@@ -156,6 +160,7 @@ Connecting Facebook and reporting plates need Stage 1, which starts once the onb
 
 ## Related pages
 
+- [Team and roles](/docs/dealer/team-and-roles)
 - [Verification and access](/docs/dealer/verification-and-access)
 - [Dashboard home](/docs/dealer/dashboard-home)
 - [Troubleshooting and FAQ](/docs/dealer/troubleshooting-faq)

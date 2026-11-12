@@ -28,13 +28,14 @@ The Dealer app does **not** show the public Marketplace. Buyers use a separate s
 
 | Person | What they can do |
 | --- | --- |
-| **Dealer owner** | Everything in the dashboard, including billing, verification and Facebook. |
-| **Dealer staff** | Everything in the dashboard. The app lets `owner`, `staff` and `super_admin` roles in; it does not hide pages per role. |
+| **Dealer owner** | Everything in the dashboard, including billing, verification, Facebook and [team invites](/docs/dealer/team-and-roles). |
+| **Dealer admin** | Same as the owner for day-to-day and team management. The founding owner account cannot be demoted or deactivated. |
+| **Dealer staff** | Inventory, listings, inquiries, cashback, dealer profile, PlateCheck, onboarding checklist, and limited Settings. See [Team and roles](/docs/dealer/team-and-roles). |
 | **Platform admin** (DryvHub employee) | Uses a separate portal on a separate address. See [Admin portal](/docs/dealer/admin-portal). |
 | **Buyers** | Never sign in to the Dealer app. They see the dealer's public profile page only. See [Dealer profile](/docs/dealer/dealer-profile). |
 
 :::note
-The dashboard allows three roles in: `super_admin`, `owner` and `staff`. The app has no screen for inviting team members or changing roles, and no per-role page restrictions were found in the code.
+Dealership roles are `owner`, `admin` and `staff`. Seat limits follow the subscription plan. Full access rules: [Team and roles](/docs/dealer/team-and-roles).
 :::
 
 ## The big picture
@@ -73,10 +74,11 @@ The left menu is the main way to move around. This table follows the menu exactl
 | **Inquiries** | `/dashboard/inquiries` | Buyer questions that came from the Marketplace. | [Inquiries](/docs/dealer/inquiries) |
 | **Cashback** | `/dashboard/cashback` | Buyer cashback claims the dealer must confirm or dispute. | [Cashback](/docs/dealer/cashback) |
 | **Dealer Profile** | `/dashboard/dealer-profile` | The public page buyers see. | [Dealer profile](/docs/dealer/dealer-profile) |
+| **Team** (owner/admin) | `/dashboard/team` | Invite teammates and manage roles. | [Team and roles](/docs/dealer/team-and-roles) |
 | **Subscription & Billing** | `/dashboard/billing` | Plans and invoices. | [Billing](/docs/dealer/billing) |
 | **Storage** | `/dashboard/storage` | How much photo and document space is used. | [Storage and settings](/docs/dealer/storage-and-settings) |
 | **PlateCheck** | `/dashboard/platecheck` | Search and report flagged plates. | [PlateCheck](/docs/dealer/platecheck) |
-| **Settings** | `/dashboard/settings` | Facebook connection. | [Storage and settings](/docs/dealer/storage-and-settings), [Facebook integration](/docs/dealer/facebook-integration) |
+| **Settings** | `/dashboard/settings` | Integrations, workspace summary, account, appearance. | [Storage and settings](/docs/dealer/storage-and-settings), [Facebook integration](/docs/dealer/facebook-integration) |
 | **Verification** | `/dashboard/verification` | Where the dealership stands in verification. | [Verification and access](/docs/dealer/verification-and-access) |
 | **Documents → Onboarding Checklist** | `/dashboard/onboarding` | Business details and documents submitted for review. | [Getting started](/docs/dealer/getting-started) |
 | **Documents → Monthly Report** | `/dashboard/reports/sales` | Shortcut to the Sales Report. | [Reports](/docs/dealer/reports) |
@@ -87,7 +89,7 @@ The top of the sidebar shows the dealership name, its current plan, and a verifi
 
 The word *admin* appears in two unrelated ways:
 
-- **Dealer roles** (`owner`, `staff`, `super_admin`) belong to a dealership.
+- **Dealer admin** is a dealership role (`owner`, `admin`, `staff`) with full workspace access including team invites. See [Team and roles](/docs/dealer/team-and-roles).
 - **Platform admin** is a DryvHub staff account that reviews dealers across all dealerships. It signs in on `admin.dryvhub.com`, not on a dealership address.
 
 ## For developers
@@ -100,6 +102,7 @@ The word *admin* appears in two unrelated ways:
 ## Related pages
 
 - [Getting started](/docs/dealer/getting-started)
+- [Team and roles](/docs/dealer/team-and-roles)
 - [Verification and access](/docs/dealer/verification-and-access)
 - [How it fits together](/docs/start/how-it-fits-together)
 - [Glossary](/docs/start/glossary)

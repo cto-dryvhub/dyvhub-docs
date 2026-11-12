@@ -40,7 +40,7 @@ What every plan includes (from the page itself):
 Pricing note on the page: "Pricing is reviewed annually. We give 30 days' notice before any increase."
 
 :::note
-The unit, admin-account and storage figures are shown on the plan cards. This documentation could not confirm from the code reviewed that every limit is enforced when exceeded. The storage meter does warn as usage grows; see [Storage and settings](/docs/dealer/storage-and-settings).
+The unit, admin-account and storage figures are shown on the plan cards. **Team seat limits** (the admin-account column) are enforced when owners or admins send an invite or when someone accepts an invite — see [Team and roles](/docs/dealer/team-and-roles#seat-limits-by-plan). Vehicle unit caps and automatic storage limit changes are not fully confirmed here; the storage meter does warn as usage grows — see [Storage and settings](/docs/dealer/storage-and-settings).
 :::
 
 ## The page
@@ -120,6 +120,7 @@ The provider was originally proposed as Maya. It changed to PayMongo in November
 
 ## Related pages
 
+- [Team and roles](/docs/dealer/team-and-roles)
 - [Verification and access](/docs/dealer/verification-and-access)
 - [Storage and settings](/docs/dealer/storage-and-settings)
 - [Listings and publishing](/docs/dealer/listings-and-publishing)

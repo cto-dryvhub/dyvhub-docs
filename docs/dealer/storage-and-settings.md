@@ -1,7 +1,7 @@
 ---
 title: Storage and settings
 sidebar_position: 17
-description: The Storage meter, the Settings page, and what the app does and does not offer for account and team management.
+description: The Storage meter, the Settings page, workspace summary rows, and where team management lives.
 ---
 
 # Storage and settings
@@ -9,7 +9,7 @@ description: The Storage meter, the Settings page, and what the app does and doe
 This page explains the **Storage** page, the **Settings** page, the user menu, and what to expect (and not expect) for account and team settings.
 
 :::tip[In plain English]
-Every photo and document a dealer uploads uses storage space. The Storage page is a fuel gauge for that space. Settings is currently a short page with one item: connecting Facebook.
+Every photo and document a dealer uploads uses storage space. The Storage page is a fuel gauge for that space. Settings gathers integrations, a workspace summary, your account, and appearance. Team invites live on a separate Team page for owners and admins.
 :::
 
 ## Storage
@@ -49,13 +49,18 @@ The limit is a value stored on the dealership record, which starts at 0.5 GB (50
 
 **Menu:** Settings (`/dashboard/settings`). The page is titled **Settings** with the subtitle "Workspace integrations and preferences."
 
-It currently has **one** card:
+The page has four sections on one scroll:
 
-| Card | Opens | Purpose |
-| --- | --- | --- |
-| **Facebook** | `/dashboard/settings/facebook` | "Connect your Page for listing photo posts and Sync to Facebook." |
+| Section | Purpose |
+| --- | --- |
+| **Integrations** | Facebook connection panel (managers can connect; staff see status only). |
+| **Workspace** | Shortcuts to dealer profile, plan, and storage usage at a glance. |
+| **Account** | Signed-in user name, email, and role. |
+| **Appearance** | Light / dark / system and comfortable / compact layout. |
 
-Full details are in [Facebook integration](/docs/dealer/facebook-integration).
+Facebook connect flows live on `/dashboard/settings/facebook`. Full details are in [Facebook integration](/docs/dealer/facebook-integration).
+
+**Team** is a separate main-nav page below Dealer Profile (`/dashboard/team`). Only owners and admins can open it — see [Team and roles](/docs/dealer/team-and-roles).
 
 ## The user menu
 
@@ -66,16 +71,10 @@ The menu at the bottom of the sidebar has two items:
 
 The header at the top of the sidebar (the dealership switcher area) shows the **business name**, the **current plan** and the **verified badge**. It displays one dealership and is not a multi-dealership switcher.
 
-## Account and team settings
+## Account changes
 
-**Not available.** The code reviewed contains no screens for:
+From **Settings → Account**, a dealer can see their role (Owner, Admin, or Staff). Changing email or password while signed in is not on this page — use password reset from the sign-in flow ([Getting started](/docs/dealer/getting-started)). Workspace business address is edited on the [Dealer profile](/docs/dealer/dealer-profile) and onboarding checklist, not here.
 
-- Inviting or removing team members.
-- Changing a user's role.
-- Changing a name, email or password while signed in. (Password reset is possible only from the sign-in page; see [Getting started](/docs/dealer/getting-started).)
-- Editing the workspace address.
-
-Admin account counts appear in the plan table, but there is no screen to manage those accounts yet.
 ## For developers
 
 - Storage page: `app/(session)/dashboard/storage/`, `components/storage/`, `lib/storage/storage-usage.ts`. Usage comes from `storageUsedGb` and `storageLimitGb` on the tenant response.
@@ -84,6 +83,7 @@ Admin account counts appear in the plan table, but there is no screen to manage 
 
 ## Related pages
 
+- [Team and roles](/docs/dealer/team-and-roles)
 - [Billing](/docs/dealer/billing)
 - [Facebook integration](/docs/dealer/facebook-integration)
 - [Vehicle detail](/docs/dealer/vehicle-detail)

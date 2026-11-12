@@ -50,7 +50,7 @@ They can join in either of these ways:
 | Method | What happens |
 | --- | --- |
 | **Email and password** | They set a password (at least 8 characters), create or use an account for the invited email, and join the workspace. |
-| **Continue with Google** | They sign in with Google. The Google account email **must match** the invite email (not case-sensitive). If they signed in with a different Google account, the app signs them out and asks them to use the correct email. |
+| **Continue with Google** | They sign in with Google. Google opens the account chooser for the invited address. That account must be the invited mailbox (not case-sensitive). Gmail addresses still match when they differ only by dots or a plus tag. A different account already signed in on this browser is not used. |
 
 After a successful join, the app sends them to their default home:
 

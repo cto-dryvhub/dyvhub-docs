@@ -93,7 +93,7 @@ Staff are meant for inventory, listings, buyer follow-up, and profile upkeep —
 
 | Area | Notes |
 | --- | --- |
-| **Inventory** and **Listings** | Full vehicle and listing workflows |
+| **Inventory** and **Listings** | Full vehicle and listing workflows, including documents and expenses on the vehicle page |
 | **Inquiries** | Buyer inquiries for the dealership |
 | **Cashback** | Cashback claims workflow |
 | **Dealer profile** | Public dealership profile |
@@ -155,6 +155,7 @@ Differences on the Team page:
 | Billing and storage pages | Yes | Yes | No (read-only summary in Settings) |
 | Facebook connect / disconnect | Yes | Yes | No (status only) |
 | Inventory, listings, inquiries, cashback | Yes | Yes | Yes |
+| Vehicle documents and expenses | Yes | Yes | Yes |
 
 ## For developers
 

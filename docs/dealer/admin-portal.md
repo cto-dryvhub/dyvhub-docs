@@ -34,8 +34,8 @@ Only people with a **platform admin** account. This is a separate record from a 
 | **Tenant detail** | `/admin/tenants/{tenant id}` | One dealership: details, documents, decision, history, follow-up flag. |
 | **Vehicles** | `/admin/vehicles` | List of vehicles across all dealerships. |
 | **Vehicle detail** | `/admin/vehicles/{vehicle id}` | Edit or act on one vehicle. |
-| **Feedback** | `/admin/feedback` | Product feedback and bug reports from every dealership. Filter by kind and status. |
-| **Feedback detail** | `/admin/feedback/{id}` | Full message, evidence link, reporter, page path, email status, and triage status. |
+| **Feedback** | `/admin/feedback` | Product feedback and bug reports from every dealership. Filter by kind and status (Open, Triaged, In Progress, In Review, Resolved, Done, Closed). |
+| **Feedback detail** | `/admin/feedback/{id}` | Full message, evidence link, reporter, page path, email status, and status. |
 | **Login** | `/admin/login` | Sign-in. |
 
 ## Reviewing a dealership

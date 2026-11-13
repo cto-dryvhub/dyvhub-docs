@@ -34,8 +34,8 @@ Only people with a **platform admin** account. This is a separate record from a 
 | **Tenant detail** | `/admin/tenants/{tenant id}` | One dealership: details, documents, decision, history, follow-up flag. |
 | **Vehicles** | `/admin/vehicles` | List of vehicles across all dealerships. |
 | **Vehicle detail** | `/admin/vehicles/{vehicle id}` | Edit or act on one vehicle. |
-| **Feedback** | `/admin/feedback` | Ticket Kanban for product feedback and bug reports from every dealership. Columns are Open, Triaged, In Progress, In Review, Resolved, Done, and Closed. Filter by kind (Feedback / Bug); drag a card to change status; archive cards to hide them from the active board (Show archived to review them); open a card for the full report. |
-| **Feedback detail** | `/admin/feedback/{id}` | Full message, evidence link, reporter, page path, email status, triage status, and archive/restore. |
+| **Feedback** | `/admin/feedback` | Ticket Kanban for product feedback, bug reports, and admin-created platform Tasks. Columns are Open, Triaged, In Progress, In Review, Resolved, Done, and Closed. Filter by kind (Feedback / Bug / Task); Create task for platform monitoring cards (no dealership); drag a card to change status; archive cards to hide them from the active board; open a card for the full report. Cards with notes show a count. |
+| **Feedback detail** | `/admin/feedback/{id}` | Full message, evidence link, reporter (or platform admin for Tasks), page path, email status, triage status, and archive/restore. Add internal notes. |
 | **Login** | `/admin/login` | Sign-in. |
 
 ## Reviewing a dealership

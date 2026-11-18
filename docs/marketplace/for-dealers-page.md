@@ -30,7 +30,7 @@ It is reachable from the **For Dealers** link in the site menu and footer, and i
 | 4 | **Advantages** | Four benefits: inquiries arrive as real Messenger conversations; no buyer sign-up; units are presented properly; listings are found by search engines. | Fixed text |
 | 5 | **How it works** | Four steps: get verified, keep managing stock in the Dealer app, eligible units publish themselves, close the sale on Messenger. | Fixed text |
 | 6 | **Your data** | Two lists: what buyers see (year, make, model, variant, asking price, mileage, transmission, fuel, color, category, dealership name, photos) and what never leaves the dealer's account (plate number, purchase price and margin, expenses, internal notes, documents, supply-agent and buyer records). | Fixed text |
-| 7 | **FAQ** | Six questions: re-uploading inventory, which units appear, how inquiries reach the dealer, whether buyers need an account, whether private data is visible, who controls photos. | Fixed text, also published as structured data |
+| 7 | **FAQ** | Seven questions, starting with how a dealer lists used cars on DryvHub, then re-uploading inventory, which units appear, how inquiries reach the dealer, whether buyers need an account, whether private data is visible, and who controls photos. | Fixed text, also published as structured data |
 | 8 | **Closing call to action** | "Put your best units in front of buyers this week", a sign-up button, and "Already a DryvHub dealer? Sign in". | Fixed text |
 
 ### About the live numbers

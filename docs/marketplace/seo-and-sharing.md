@@ -18,14 +18,14 @@ The official site name in titles and previews is **Marketplace by DryvHub**.
 
 | Page | Title | Indexed? | Canonical (official) address |
 | --- | --- | --- | --- |
-| `/` | Marketplace by DryvHub | Yes | The site origin |
+| `/` | "Used cars in the Philippines" | Yes | The site origin |
 | `/vehicles` | "Verified used cars" | Yes | `/vehicles` **without** filters or page numbers |
 | `/vehicles/{id}` (car found) | Year, make, model and variant (for example "2019 Toyota Vios 1.3 E") | Yes | `/vehicles/{id}` |
 | `/vehicles/{id}` (car missing) | "Vehicle listing" (generic) | **No** ("noindex, follow") | None |
-| `/for-dealers` | "Sell with DryvHub: list your dealership stock" | Yes | `/for-dealers` |
+| `/for-dealers` | "List your used-car stock in the Philippines" | Yes | `/for-dealers` |
 | `/purchases/cashback` | Cashback page | **No** ("noindex, nofollow") | None |
 
-Titles use the pattern "page title | Marketplace by DryvHub" where the layout adds the site name.
+Titles use the pattern "page title | Marketplace by DryvHub", where the layout adds the site name. The homepage uses that pattern too, so the full title is "Used cars in the Philippines | Marketplace by DryvHub".
 
 ### What a car page says about itself
 
@@ -42,7 +42,7 @@ On screen, prices are rounded to whole pesos. The structured data carries the nu
 
 ### `/for-dealers` structured data
 
-The dealer landing page includes `FAQPage` structured data built from its six FAQ questions. See [For-dealers page](/docs/marketplace/for-dealers-page).
+The dealer landing page includes `FAQPage` structured data built from the visible dealer FAQ, including how a dealer lists used cars. See [For-dealers page](/docs/marketplace/for-dealers-page).
 
 ## Sitemap and robots
 
@@ -50,6 +50,7 @@ The dealer landing page includes `FAQPage` structured data built from its six FA
 | --- | --- |
 | `/sitemap.xml` | Lists the home page, `/vehicles`, `/for-dealers`, and each current public car page. Cars include their listed date as "last modified" when known. |
 | `/robots.txt` | Allows all crawlers on all paths and points to the sitemap. |
+| `/llms.txt` | A short factual map for answer engines: what the marketplace is, the public pages, and which dealer fields stay private. |
 
 Details worth knowing:
 
